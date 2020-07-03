@@ -1,6 +1,6 @@
 {
   "name": "qm-hub-multimeter-get-voltage-diff",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "multimeter get-voltage-diff module - Node-Red",
   "main": "get-voltage-diff.js",
   "scripts": {
