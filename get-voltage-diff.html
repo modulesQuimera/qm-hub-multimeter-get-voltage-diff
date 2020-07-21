@@ -1,7 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('get-voltage-diff',{
         category: 'multimeter modular',
-        color: '#C0C0C0',
+        color: '#32CD32',
         defaults: {
             name:{ value: "" },
             mapeamento:{ value:"", type: "mapping-get-voltage-diff" },
@@ -16,8 +16,8 @@
         },
         inputs:1,
         outputs:1,
-        icon: "Get_Voltage_Diff.svg",
-        label: function() { return this.name || "Get Voltage Diff" },
+        icon: "Multimeter_Modular.svg",
+        label: function() { return this.name? "Get Voltage Diff - " + this.name: "Get Voltage Diff" },
         paletteLabel: "Get Voltage Diff",
         oneditprepare: function() {
             var node = this;
@@ -50,21 +50,46 @@
 
             var ports = []
             var self = this
+            var config_mapeamento = RED.nodes.node(this.mapeamento)
+            if(config_mapeamento){
+                ports = [
+                    {value:config_mapeamento.valuePort1, label: "A1 | B1 - " + config_mapeamento.labelPort1, hasValue:false},
+                    {value:config_mapeamento.valuePort2, label: "A2 | B2 - " + config_mapeamento.labelPort2, hasValue:false},
+                    {value:config_mapeamento.valuePort3, label: "A3 | B3 - " + config_mapeamento.labelPort3, hasValue:false},
+                    {value:config_mapeamento.valuePort4, label: "A4 | B4 - " + config_mapeamento.labelPort4, hasValue:false},
+                    {value:config_mapeamento.valuePort5, label: "A5 | B5 - " + config_mapeamento.labelPort5, hasValue:false},
+                    {value:config_mapeamento.valuePort6, label: "A6 | B6 - " + config_mapeamento.labelPort6, hasValue:false},
+                    {value:config_mapeamento.valuePort7, label: "A7 | B7 - " + config_mapeamento.labelPort7, hasValue:false},
+                    {value:config_mapeamento.valuePort8, label: "A8 | B8 - " + config_mapeamento.labelPort8, hasValue:false},
+                    {value:config_mapeamento.valuePort9, label: "A9 | B9 - " + config_mapeamento.labelPort9, hasValue:false},
+                    {value:config_mapeamento.valuePort10, label: "A10 | B10 - " + config_mapeamento.labelPort10, hasValue:false},
+                    {value:config_mapeamento.valuePort11, label: "A11 | B11 - " + config_mapeamento.labelPort11, hasValue:false},
+                    {value:config_mapeamento.valuePort12, label: "APW | BPW - " + config_mapeamento.labelPort12, hasValue:false},
+                    {value:config_mapeamento.valuePort13, label: "AMX | BMX - " + config_mapeamento.labelPort13, hasValue:false},
+                ]; 
+            }
+            else{
+                ports = [
+                    {label:"A1 | B1 - ", value: "0", hasValue:false},
+                    {label:"A2 | B2 - ", value: "1", hasValue:false},
+                    {label:"A3 | B3 - ", value: "2", hasValue:false},
+                    {label:"A4 | B4 - ", value: "3", hasValue:false},
+                    {label:"A5 | B5 - ", value: "4", hasValue:false},
+                    {label:"A6 | B6 - ", value: "5", hasValue:false},
+                    {label:"A7 | B7 - ", value: "6", hasValue:false},
+                    {label:"A8 | B8 - ", value: "7", hasValue:false},
+                    {label:"A9 | B9 - ", value: "8", hasValue:false},
+                    {label:"A10 | B10 - ", value: "9", hasValue:false},
+                    {label:"A11 | B11 - ", value: "10", hasValue:false},
+                    {label:"APW | BPW - ", value: "11", hasValue:false},
+                    {label:"AMX | BMX - ", value: "12", hasValue:false},
+                ];
+            }
+            $("#node-config-input-port").typedInput({
+                default: self.channel_number,
+                types:ports
+            });
 
-            $.getJSON('getVoltageDiff',function(data) {
-                ports = data  
-                var portType = "custom";
-                for (var i in ports) {
-                    if (self.channel_number == ports[i].value) {
-                        portType = self.channel_number;
-                    }
-                }
-                $("#node-config-input-port").typedInput({
-                    default: self.channel_number,
-                    types:ports
-                });
-            })
-            $("#node-input-mapeamento").val($("#node-input-mapeamento option:first").val());
         },
         oneditresize: function() {
             if(!$("#red-ui-header-button-deploy").hasClass("disabled")){
@@ -121,7 +146,7 @@
 <script type="text/html" data-template-name="get-voltage-diff">
     <div class="form-row columm">
         <strong class="descript">
-            A comparation is made with the measured differential voltage value.
+            Make the differential measurement between two tp’s.
         </strong>
     </div>
     <div style="display: flex;">
@@ -141,10 +166,14 @@
         <label for="node-input-channel_number"><i class="fa fa-list-ul"></i> Couple channel</label>
         <div>
             <input type="text" id="node-config-input-port" style="width: 49%">
-            <div style="width:20px; margin-left:222px; margin-top:-34px" selected>
+            <!-- <div style="width:20px; margin-left:222px; margin-top:-34px" selected>
                 <input type="text" id="node-input-mapeamento" placeholder="mapeamento">
-            </div>
+            </div> -->
         </div>
+    </div>
+    <div class="form-row">
+        <label for="node-input-mapeamento"><i class="fa fa-map"></i> Mapping</label>
+        <input type="text" id="node-input-mapeamento">
     </div>
     <div class="form-row columm ">
         <label style="width: auto; margin-top: 8px;" for="node-input-compare_select"><i class="icon-tag"></i>Comparison Type:</label>
@@ -190,7 +219,7 @@
 </script>
 
 <script type="text/html" data-help-name="get-voltage-diff">
-    <p>Working on it...</p>
+    <p>Make the differential measurement between two tp’s.</p>
 </script>
 
 
