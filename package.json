@@ -1,6 +1,6 @@
 {
   "name": "qm-multimeter-get-voltage-diff",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "multimeter get-voltage-diff module - Node-Red",
   "main": "get-voltage-diff.js",
   "scripts": {
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/modulesQuimera/qm-hub-multimeter-get-voltage-diff.git"
+    "url": "git+https://github.com/modulesQuimera/qm-multimeter-get-voltage-diff.git"
   },
   "keywords": ["quimera", "hub", "JIG"],
   "author": "HUB-LSE",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/modulesQuimera/qm-hub-multimeter-get-voltage-diff/issues"
+    "url": "https://github.com/modulesQuimera/qm-multimeter-get-voltage-diff/issues"
   },
-  "homepage": "https://github.com/modulesQuimera/qm-hub-multimeter-get-voltage-diff#readme",
+  "homepage": "https://github.com/modulesQuimera/qm-multimeter-get-voltage-diff#readme",
   "node-red": {
     "nodes": {
      "get-voltage-diff": "get-voltage-diff.js"
